@@ -1,0 +1,5 @@
+{
+    "TwilioAccountSID": "Twilio Account SID goes here",
+    "TwilioAuthToken": "Twilio Auth Token goes here",
+    "TwilioFromNumber": "Twilio From Number goes here"
+}
