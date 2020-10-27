@@ -33,13 +33,7 @@ Our addressBook.csv file contains the following data elements:
 ## Twilio
 For this challenge you will be using Twilio to send the messages.  They have impressive API capabilities!
 
-We went ahead and already setup a test account and number.  You can use these values provided
-
-Parameter Name | Value
------------- | -------------
-Twilio Account SID  | AC3fb33979890bd1923ad74a7a38cfeb0d
-Twilio AuthToken | da2ecb59c4277a819f503fdc0dc20edf
-Twilio from number  | 515-305-3522
+We went ahead and already setup a test account and number.  Those values should have been provided in the email sent to you.
 
 ### Additional Twilio Information
 
