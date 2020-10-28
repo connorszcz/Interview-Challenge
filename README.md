@@ -19,3 +19,7 @@ The real config file contains things like API keys, so the one I'm using has bee
 ## Running
 
 To run the program, simply run `go run main.go`. That's it!
+
+## Testing
+
+This project comes with _some_ unit tests. I didn't test exhaustively, but wanted to make sure my code was working. To run the tests, run `go test ./...`.
