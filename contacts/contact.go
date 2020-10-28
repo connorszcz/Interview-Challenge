@@ -1,6 +1,9 @@
 package contacts
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 type Contact struct {
 	FirstName     string
@@ -12,4 +15,15 @@ type Contact struct {
 	State         string
 	Zip           string
 	BirthMonth    time.Month
+}
+
+func (c Contact) GetValidPhoneNumber() (string, error) {
+	if c.MobilePhone != `` {
+		return c.MobilePhone, nil
+	}
+	if c.HomePhone == `` {
+		return ``, fmt.Errorf(`No valid phone number for contact: %s %s`, c.FirstName, c.LastName)
+	}
+	// TODO: check the assumption that we want to fall back to HomePhone!
+	return c.HomePhone, nil
 }

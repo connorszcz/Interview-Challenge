@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"log"
 	"time"
@@ -34,14 +33,11 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		sendTo := c.MobilePhone
-		if sendTo == `` {
-			if c.HomePhone == `` {
-				log.Fatal(errors.New(`No valid number for contact: ` + c.FirstName + ` ` + c.LastName))
-			}
-			// TODO: verify that we want to use home phone as a fallback
-			sendTo = c.HomePhone
+		sendTo, err := c.GetValidPhoneNumber()
+		if err != nil {
+			log.Fatal(err)
 		}
+
 		err = twilioClient.SendSMS(cfg.TwilioFromNumber, msg, sendTo)
 		if err != nil {
 			log.Fatal(err)
