@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/connorszcz/Interview-Challenge/csv"
+	"github.com/connorszcz/Interview-Challenge/contacts"
 
 	"github.com/connorszcz/Interview-Challenge/config"
 	"github.com/connorszcz/Interview-Challenge/twilio"
@@ -18,7 +18,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	contacts, err := csv.ParseFile(`addressBook.csv`)
+	contacts, err := contacts.ParseFile(`addressBook.csv`)
 	if err != nil {
 		log.Fatal(err)
 	}
