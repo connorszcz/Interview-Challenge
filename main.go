@@ -5,18 +5,27 @@ import (
 	"log"
 	"time"
 
+	"gopkg.in/alecthomas/kingpin.v2"
+
 	"github.com/connorszcz/Interview-Challenge/config"
 	"github.com/connorszcz/Interview-Challenge/contacts"
 	"github.com/connorszcz/Interview-Challenge/twilio"
 )
 
+// Provide a CLI to specify the address book and config files. Could just as easily be a .env file or environment vars
+var (
+	addressBookFile = kingpin.Flag(`address-book`, `path to address book CSV file`).Default(`addressBook.csv`).String()
+	configFile      = kingpin.Flag(`config-file`, `path to config file`).Default(`config.json`).String()
+)
+
 func main() {
-	cfg, err := config.ReadFile(`config.json`)
+	kingpin.Parse()
+	cfg, err := config.ReadFile(*configFile)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	contacts, err := contacts.ParseFile(`addressBook.csv`)
+	contacts, err := contacts.ParseFile(*addressBookFile)
 	if err != nil {
 		log.Fatal(err)
 	}
