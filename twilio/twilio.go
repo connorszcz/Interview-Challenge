@@ -25,8 +25,16 @@ func NewClient(sid, authToken string) (TwilioClient, error) {
 }
 
 // SendSMS interacts with the twilio API to send a message with body `body` from mobile number `from` to mobile number `to`
-// Note: `from` and `to` must be in the format +1234567890 per the twilio documentation
 func (tc *TwilioClient) SendSMS(from, body, to string) error {
+	from, err := normalizePhoneNumber(from)
+	if err != nil {
+		return err
+	}
+	to, err = normalizePhoneNumber(to)
+	if err != nil {
+		return err
+	}
+
 	u := url.URL{
 		Scheme: `https`,
 		Path:   baseURL + `Accounts/` + tc.sid + `/Messages.json`,
@@ -53,4 +61,18 @@ func (tc *TwilioClient) SendSMS(from, body, to string) error {
 		return errors.New(`API returned bad error code!`)
 	}
 	return nil
+}
+
+func normalizePhoneNumber(s string) (string, error) {
+	// I won't do an exhaustive check on the format of the incoming phone number for this exercise, but I want to support _some_ basic normalization to get the Twilio's required format
+	// Normalized format: +1234567890
+	s = strings.TrimSpace(s)
+	if s == `` {
+		return ``, errors.New(`Phone number is empty!`)
+	}
+	s = strings.ReplaceAll(s, `-`, ``)
+	s = strings.ReplaceAll(s, `(`, ``)
+	s = strings.ReplaceAll(s, `)`, ``)
+	s = strings.ReplaceAll(s, `+`, ``)
+	return `+` + s, nil
 }
