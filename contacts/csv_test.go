@@ -1,4 +1,4 @@
-package csv
+package contacts
 
 import (
 	"strings"
@@ -67,6 +67,29 @@ Alex,Holmes,7077323644,5153164007,5928 E Third St.,Clive,IA,50123,a/1/2020`,
 		desc: `test out of range birth month`,
 		csv: `First Name,Last Name,Home Phone,Mobile Phone,Street Address,City,State,Zip,Date of Birth
 Alex,Holmes,7077323644,5153164007,5928 E Third St.,Clive,IA,50123,13/1/2020`,
+		expContacts: nil,
+		expErr:      true,
+	}, {
+		desc: `test empty mobile`,
+		csv: `First Name,Last Name,Home Phone,Mobile Phone,Street Address,City,State,Zip,Date of Birth
+Alex,Holmes,7077323644,,5928 E Third St.,Clive,IA,50123,1/1/2020
+Brad,Reed,7077323644,5153164007,5929 E Third St.,Clive,IA,50124,2/2/1977`,
+		expContacts: []Contact{{
+			FirstName:     `Brad`,
+			LastName:      `Reed`,
+			HomePhone:     `7077323644`,
+			MobilePhone:   `5153164007`,
+			StreetAddress: `5929 E Third St.`,
+			City:          `Clive`,
+			State:         `IA`,
+			Zip:           `50124`,
+			BirthMonth:    time.February,
+		}},
+		expErr: false,
+	}, {
+		desc: `test one record with empty mobile`,
+		csv: `First Name,Last Name,Home Phone,Mobile Phone,Street Address,City,State,Zip,Date of Birth
+Alex,Holmes,7077323644,,5928 E Third St.,Clive,IA,50123,1/1/2020`,
 		expContacts: nil,
 		expErr:      true,
 	}}

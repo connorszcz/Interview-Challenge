@@ -15,27 +15,27 @@ func TestNormalizePhoneNumber(t *testing.T) {
 	}{{
 		desc:   `just numbers`,
 		s:      `1234567890`,
-		exp:    `+1234567890`,
+		exp:    `+11234567890`,
 		expErr: false,
 	}, {
 		desc:   `leading +`,
 		s:      `+1234567890`,
-		exp:    `+1234567890`,
+		exp:    `+11234567890`,
 		expErr: false,
 	}, {
 		desc:   `dashes`,
 		s:      `123-456-7890`,
-		exp:    `+1234567890`,
+		exp:    `+11234567890`,
 		expErr: false,
 	}, {
 		desc:   `parens and dashes`,
 		s:      `(123)456-7890`,
-		exp:    `+1234567890`,
+		exp:    `+11234567890`,
 		expErr: false,
 	}, {
 		desc:   `leading and trailing whitespace`,
 		s:      "   1234567890 \n",
-		exp:    `+1234567890`,
+		exp:    `+11234567890`,
 		expErr: false,
 	}, {
 		desc:   `empty string`,

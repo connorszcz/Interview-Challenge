@@ -2,6 +2,7 @@ package twilio
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
@@ -14,11 +15,11 @@ type TwilioClient struct {
 	authToken string
 }
 
-func NewClient(sid, authToken string) (TwilioClient, error) {
+func NewClient(sid, authToken string) (*TwilioClient, error) {
 	if sid == `` || authToken == `` {
-		return TwilioClient{}, errors.New(`SID and AuthToken must not be emprty!`)
+		return nil, errors.New(`SID and AuthToken must not be emprty!`)
 	}
-	return TwilioClient{
+	return &TwilioClient{
 		sid:       sid,
 		authToken: authToken,
 	}, nil
@@ -57,7 +58,9 @@ func (tc *TwilioClient) SendSMS(from, body, to string) error {
 	if err != nil {
 		return err
 	}
-	if res.StatusCode != http.StatusOK {
+	// accept any status code in the 200s
+	if res.StatusCode < 200 || res.StatusCode >= 300 {
+		fmt.Println(res.Status)
 		return errors.New(`API returned bad error code!`)
 	}
 	return nil
@@ -74,5 +77,6 @@ func normalizePhoneNumber(s string) (string, error) {
 	s = strings.ReplaceAll(s, `(`, ``)
 	s = strings.ReplaceAll(s, `)`, ``)
 	s = strings.ReplaceAll(s, `+`, ``)
-	return `+` + s, nil
+	// add a +1 for the country code
+	return `+1` + s, nil
 }
