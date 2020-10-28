@@ -8,9 +8,12 @@ Before running locally, some things need to be configured. This is done via a JS
 
 ```json
 {
-  "TwilioAccountSID": "Twilio Account SID goes here",
-  "TwilioAuthToken": "Twilio Auth Token goes here",
-  "TwilioFromNumber": "Twilio From Number goes here"
+  "twilio_account_sid": "Twilio Account SID goes here",
+  "twilio_auth_token": "Twilio Auth Token goes here",
+  "twilio_from_number": "Twilio From Number goes here",
+  "sender_first_name": "First name of the birthday wisher",
+  "sender_last_name": "Last name of the birthday wisher",
+  "sender_mobile_number": "Mobile number of the birthday wisher"
 }
 ```
 
