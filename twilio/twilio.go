@@ -14,11 +14,11 @@ type TwilioClient struct {
 	authToken string
 }
 
-func NewClient(sid, authToken string) (TwilioClient, error) {
+func NewClient(sid, authToken string) (*TwilioClient, error) {
 	if sid == `` || authToken == `` {
-		return TwilioClient{}, errors.New(`SID and AuthToken must not be emprty!`)
+		return nil, errors.New(`SID and AuthToken must not be emprty!`)
 	}
-	return TwilioClient{
+	return &TwilioClient{
 		sid:       sid,
 		authToken: authToken,
 	}, nil
