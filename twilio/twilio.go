@@ -2,6 +2,7 @@ package twilio
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
@@ -58,6 +59,7 @@ func (tc *TwilioClient) SendSMS(from, body, to string) error {
 		return err
 	}
 	if res.StatusCode != http.StatusOK {
+		fmt.Println(res.Status)
 		return errors.New(`API returned bad error code!`)
 	}
 	return nil
@@ -74,5 +76,6 @@ func normalizePhoneNumber(s string) (string, error) {
 	s = strings.ReplaceAll(s, `(`, ``)
 	s = strings.ReplaceAll(s, `)`, ``)
 	s = strings.ReplaceAll(s, `+`, ``)
-	return `+` + s, nil
+	// add a +1 for the country code
+	return `+1` + s, nil
 }
