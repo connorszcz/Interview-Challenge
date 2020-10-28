@@ -5,9 +5,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/connorszcz/Interview-Challenge/contacts"
-
 	"github.com/connorszcz/Interview-Challenge/config"
+	"github.com/connorszcz/Interview-Challenge/contacts"
 	"github.com/connorszcz/Interview-Challenge/twilio"
 )
 
