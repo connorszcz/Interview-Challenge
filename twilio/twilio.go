@@ -58,7 +58,8 @@ func (tc *TwilioClient) SendSMS(from, body, to string) error {
 	if err != nil {
 		return err
 	}
-	if res.StatusCode != http.StatusOK {
+	// accept any status code in the 200s
+	if res.StatusCode < 200 || res.StatusCode >= 300 {
 		fmt.Println(res.Status)
 		return errors.New(`API returned bad error code!`)
 	}
