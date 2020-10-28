@@ -35,14 +35,18 @@ const (
 	birthDateIdx
 )
 
-func Parse(filename string) ([]Contact, error) {
+func ParseFile(filename string) ([]Contact, error) {
 	f, err := os.Open(filename)
 	if err != nil {
 		return nil, err
 	}
-	r := csv.NewReader(f)
+	return Parse(f)
+}
+
+func Parse(r io.Reader) ([]Contact, error) {
+	csvReader := csv.NewReader(r)
 	// Don't parse the header
-	_, err = r.Read()
+	_, err := csvReader.Read()
 	if err != nil {
 		if err == io.EOF {
 			return nil, errors.New(`CSV file is empty!`)
@@ -52,7 +56,7 @@ func Parse(filename string) ([]Contact, error) {
 
 	contacts := make([]Contact, 0)
 	for {
-		record, err := r.Read()
+		record, err := csvReader.Read()
 		if err == io.EOF {
 			break
 		}
