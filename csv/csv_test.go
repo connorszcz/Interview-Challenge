@@ -81,3 +81,45 @@ Alex,Holmes,7077323644,5153164007,5928 E Third St.,Clive,IA,50123,13/1/2020`,
 		}
 	}
 }
+func TestParseFile(t *testing.T) {
+	tests := []struct {
+		desc        string
+		file        string
+		expContacts []Contact
+		expErr      bool
+	}{{
+		desc: `test part of the given address book`,
+		file: `testdata/testAddressBook.csv`,
+		expContacts: []Contact{{
+			FirstName:     `Alex`,
+			LastName:      `Holmes`,
+			HomePhone:     `7077323644`,
+			MobilePhone:   `5153164007`,
+			StreetAddress: `5928 E Third St.`,
+			City:          `Clive`,
+			State:         `IA`,
+			Zip:           `50123`,
+			BirthMonth:    time.January,
+		}, {
+			FirstName:     `Brad`,
+			LastName:      `Reed`,
+			HomePhone:     `7077323644`,
+			MobilePhone:   `5153164007`,
+			StreetAddress: `5929 E Third St.`,
+			City:          `Clive`,
+			State:         `IA`,
+			Zip:           `50124`,
+			BirthMonth:    time.February,
+		}},
+		expErr: false,
+	}}
+	for _, tc := range tests {
+		contacts, err := ParseFile(tc.file)
+		assert.Equal(t, tc.expContacts, contacts, tc.desc)
+		if tc.expErr {
+			assert.Error(t, err, tc.desc)
+		} else {
+			assert.NoError(t, err, tc.desc)
+		}
+	}
+}
