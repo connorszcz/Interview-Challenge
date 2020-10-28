@@ -56,6 +56,7 @@ func Parse(r io.Reader) ([]Contact, error) {
 
 	contacts := make([]Contact, 0)
 	for {
+
 		record, err := csvReader.Read()
 		if err == io.EOF {
 			break
@@ -78,6 +79,9 @@ func Parse(r io.Reader) ([]Contact, error) {
 			Zip:           record[zipIdx],
 			BirthMonth:    birthMonth,
 		})
+	}
+	if len(contacts) == 0 {
+		return nil, errors.New(`No contacts in the file!`)
 	}
 	return contacts, nil
 }
