@@ -24,20 +24,22 @@ func main() {
 
 	thisMonth := time.Now().Month()
 
+	twilioClient, err := twilio.NewClient(cfg.TwilioAccountSID, cfg.TwilioAuthToken)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	for _, c := range contacts {
 		if c.BirthMonth != thisMonth {
 			continue
 		}
-		msg := createMessage(c.FirstName, cfg.SenderFirstName, cfg.SenderLastName, cfg.SenderMobileNumber)
-		twilioClient, err := twilio.NewClient(cfg.TwilioAccountSID, cfg.TwilioAuthToken)
-		if err != nil {
-			log.Fatal(err)
-		}
+
 		sendTo, err := c.GetValidPhoneNumber()
 		if err != nil {
 			log.Fatal(err)
 		}
 
+		msg := createMessage(c.FirstName, cfg.SenderFirstName, cfg.SenderLastName, cfg.SenderMobileNumber)
 		err = twilioClient.SendSMS(cfg.TwilioFromNumber, msg, sendTo)
 		if err != nil {
 			log.Fatal(err)
