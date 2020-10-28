@@ -25,11 +25,15 @@ To run the program, simply run `go run main.go`. That's it!
 
 The tool provides some command-line options to configure it. You can get help at any time with
 
-> \$ go run main.go --help
+```
+$ go run main.go --help
+```
 
 By default, the tool sources the address book and config files from "addressBook.csv" and "config.json", respectively. You can specify the paths to the address book and config files to override the defaults
 
-> \$ go run main.go --address-book="addressBook.csv" --config-file="config.json"
+```
+$ go run main.go --address-book="addressBook.csv" --config-file="config.json"
+```
 
 ## Testing
 
