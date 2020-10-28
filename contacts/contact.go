@@ -17,7 +17,7 @@ type Contact struct {
 	BirthMonth    time.Month
 }
 
-func (c Contact) GetValidPhoneNumber() (string, error) {
+func (c Contact) GetPhoneNumber() (string, error) {
 	if c.MobilePhone != `` {
 		return c.MobilePhone, nil
 	}

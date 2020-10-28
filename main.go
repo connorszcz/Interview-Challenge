@@ -33,7 +33,7 @@ func main() {
 			continue
 		}
 
-		sendTo, err := c.GetValidPhoneNumber()
+		sendTo, err := c.GetPhoneNumber()
 		if err != nil {
 			log.Fatal(err)
 		}
