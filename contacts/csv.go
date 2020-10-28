@@ -44,7 +44,6 @@ func Parse(r io.Reader) ([]Contact, error) {
 
 	contacts := make([]Contact, 0)
 	for {
-
 		record, err := csvReader.Read()
 		if err == io.EOF {
 			break
@@ -56,11 +55,16 @@ func Parse(r io.Reader) ([]Contact, error) {
 		if err != nil {
 			return nil, fmt.Errorf(`Error parsing birth month in line %d`, len(contacts)+1)
 		}
+		mobile := record[mobilePhoneIdx]
+		if mobile == `` {
+			// Per project requirements, skip records with no mobile
+			continue
+		}
 		contacts = append(contacts, Contact{
 			FirstName:     record[firstNameIdx],
 			LastName:      record[lastNameIdx],
 			HomePhone:     record[homePhoneIdx],
-			MobilePhone:   record[mobilePhoneIdx],
+			MobilePhone:   mobile,
 			StreetAddress: record[streetAddressIdx],
 			City:          record[cityIdx],
 			State:         record[stateIdx],

@@ -33,13 +33,9 @@ func main() {
 			continue
 		}
 
-		sendTo, err := c.GetPhoneNumber()
-		if err != nil {
-			log.Fatal(err)
-		}
-
 		msg := createMessage(c.FirstName, cfg.SenderFirstName, cfg.SenderLastName, cfg.SenderMobileNumber)
-		err = twilioClient.SendSMS(cfg.TwilioFromNumber, msg, sendTo)
+		// `c.MobilePhone` is guaranteed not to be empty by `contacts.Parse`
+		err = twilioClient.SendSMS(cfg.TwilioFromNumber, msg, c.MobilePhone)
 		if err != nil {
 			log.Fatal(err)
 		}
