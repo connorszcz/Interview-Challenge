@@ -24,6 +24,8 @@ func NewClient(sid, authToken string) (TwilioClient, error) {
 	}, nil
 }
 
+// SendSMS interacts with the twilio API to send a message with body `body` from mobile number `from` to mobile number `to`
+// Note: `from` and `to` must be in the format +1234567890 per the twilio documentation
 func (tc *TwilioClient) SendSMS(from, body, to string) error {
 	u := url.URL{
 		Scheme: `https`,
