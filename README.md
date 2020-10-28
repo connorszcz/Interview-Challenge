@@ -10,7 +10,10 @@ Before running locally, some things need to be configured. This is done via a JS
 {
   "TwilioAccountSID": "Twilio Account SID goes here",
   "TwilioAuthToken": "Twilio Auth Token goes here",
-  "TwilioFromNumber": "Twilio From Number goes here"
+  "TwilioFromNumber": "Twilio From Number goes here",
+  "SenderFirstName": "First name of the birthday wisher",
+  "SenderLastName": "Last name of the birthday wisher",
+  "SenderMobileNumber": "Mobile number of the birthday wisher"
 }
 ```
 
